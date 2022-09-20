@@ -1,0 +1,14 @@
+max-epoch: 100
+max-update: 400000
+best-checkpoint-metric: loss
+maximize-best-checkpoint-metric: False
+
+save-interval: 1
+no-epoch-checkpoints: True
+
+num-workers: 8
+no-progress-bar: True
+log-interval: 100
+seed: 1
+report-accuracy: True
+skip-invalid-size-inputs-valid-test: True

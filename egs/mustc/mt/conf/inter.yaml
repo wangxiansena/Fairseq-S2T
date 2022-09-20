@@ -1,0 +1,15 @@
+ctc-layer: 6
+ctc-weight: 0.3
+interleaved-ctc-weight: 0.3
+interleaved-ctc-layers: 4
+interleaved-ctc-temperature: 1
+interleaved-ctc-drop-prob: 0
+interleaved-ctc-upsampling-ratio: 2
+
+sae-adapter: inter_league
+sae-drop-prob: 0.0
+sae-distribution-cutoff: 10
+#share-ctc-and-sae: True
+
+#sae-ground-truth-ratio: 0.3
+#ctc-self-distill-weight: 1

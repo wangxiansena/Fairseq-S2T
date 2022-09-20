@@ -1,0 +1,3 @@
+encoder-attention-type: rel_pos
+#encoder-attention-type: relative
+#max-encoder-relative-length: 100

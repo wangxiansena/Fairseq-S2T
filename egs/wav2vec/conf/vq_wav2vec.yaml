@@ -1,0 +1,37 @@
+arch: wav2vec
+min-lr: 1e-06
+stop-min-lr: 1e-09
+optimizer: adam
+lr: 0.005
+lr-scheduler: cosine
+warmup-updates: 1000
+warmup-init-lr: 1e-07
+
+criterion: wav2vec
+num-negatives: 10
+cross-sample-negatives: 0
+
+max-sample-size: 150000
+max-tokens: 300000
+update-freq: 1
+
+conv-feature-layers: (512, 10, 5), (512, 8, 4), (512, 4, 2), (512, 4, 2), (512, 4, 2), (512, 1, 1), (512, 1, 1)
+conv-aggregator-layers: (512, 2, 1), (512, 3, 1), (512, 4, 1), (512, 5, 1), (512, 6, 1), (512, 7, 1), (512, 8, 1), (512, 9, 1), (512, 10, 1), (512, 11, 1), (512, 12, 1), (512, 13, 1)
+skip-connections-agg: True
+residual-scale: 0.5
+log-compression: True
+
+activation: gelu
+offset: auto
+log-keys: "prob_perplexity","code_perplexity","temp"
+
+vq-type: gumbel
+#vq-type: kmeans
+#loss-weights: 1
+
+vq-groups: 2
+vq-depth: 2
+combine-groups: True
+vq-vars: 320
+vq-temp: (2,0.5,0.999995)
+prediction-steps: 12

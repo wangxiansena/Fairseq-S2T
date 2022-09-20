@@ -1,0 +1,8 @@
+inter-mixup: True
+inter-mixup-layer: -1
+inter-mixup-prob: 1.0
+inter-mixup-ratio: 1.0
+inter-mixup-beta: 1
+inter-mixup-keep-org: False
+ctc-mixup-consistent-weight: 0
+mixup-consistent-weight: 0

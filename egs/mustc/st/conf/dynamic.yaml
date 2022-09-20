@@ -1,0 +1,14 @@
+arch: s2t_dynamic_transformer
+
+condensation-metric: ratio
+#condensation-metric: threshold
+condensation-mode: create
+##condensation-mode: mask
+#condensation-layers: 3,6,9
+condensation-threshold: 0.9
+condensation-ratio: 0.8
+
+share-ctc-and-embed: True
+interleaved-ctc-weight: 0.2
+interleaved-ctc-layers: 3,6,9
+share-interleaved-ctc: True

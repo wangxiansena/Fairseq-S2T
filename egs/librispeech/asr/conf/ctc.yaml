@@ -1,0 +1,2 @@
+ctc-weight: 0.3
+post-process: sentencepiece

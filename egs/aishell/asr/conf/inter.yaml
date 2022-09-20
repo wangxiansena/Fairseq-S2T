@@ -1,0 +1,17 @@
+ctc-weight: 1.0
+share-ctc-and-embed: True
+
+interleaved-ctc-weight: 0.2
+interleaved-ctc-layers: 6,9
+sae-ctc-temperature: 1.0
+interleaved-ctc-drop-prob: 0
+
+sae-adapter: inter_league
+sae-drop-prob: 0.0
+#sae-distribution-cutoff: 0
+share-ctc-and-sae: False
+share-interleaved-ctc: True
+
+ctc-self-distill-weight: 0
+ctc-self-distill-prob: 0
+ctc-self-distill-temperature: 1

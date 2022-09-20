@@ -1,0 +1,14 @@
+#ctc-weight: 0.2
+intermedia-ctc-weight: 0.3
+intermedia-ctc-layers: 10,20
+
+#target-ctc-weight: 0.3
+#target-ctc-layer: 6
+#target-intermedia-ctc-weight: 0.1
+#target-intermedia-ctc-layers: 2,4
+
+intermedia-adapter: league
+#intermedia-drop-prob: 0.2
+#intermedia-temperature: 5
+
+post-process: sentencepiece

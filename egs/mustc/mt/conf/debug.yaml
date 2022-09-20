@@ -1,0 +1,48 @@
+arch: transformer_ctc
+share-all-embeddings: True
+optimizer: adam
+clip-norm: 10.0
+lr-scheduler: inverse_sqrt
+warmup-init-lr: 1e-7
+warmup-updates: 8000
+lr: 1e-3
+adam_betas: (0.9,0.997)
+
+criterion: label_smoothed_cross_entropy_with_ctc
+label_smoothing: 0.1
+
+dropout: 0.1
+attention-dropout: 0.1
+activation-dropout: 0.1
+
+activation-fn: relu
+encoder-normalize-before: True
+decoder-normalize-before: True
+encoder-embed-dim: 64
+encoder-ffn-embed-dim: 64
+encoder-layers: 6
+decoder-layers: 6
+encoder-attention-heads: 4
+
+decoder-embed-dim: 64
+decoder-ffn-embed-dim: 64
+decoder-attention-heads: 4
+
+#load-pretrained-encoder-from:
+#load-pretrained-decoder-from:
+
+#ctc-layer:
+#ctc-weight: 0.2
+interleaved-ctc-weight: 0.3
+interleaved-ctc-layers: 6,9
+sae-ctc-temperature: 1.0
+interleaved-ctc-drop-prob: 0
+interleaved-ctc-upsampling-ratio: 3
+
+sae-adapter: league
+sae-drop-prob: 0.0
+#sae-distribution-cutoff: 10
+share-ctc-and-sae: True
+
+sae-ground-truth-ratio: 0.3
+ctc-self-distill-weight: 0

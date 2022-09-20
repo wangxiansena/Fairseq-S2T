@@ -1,0 +1,19 @@
+train-subset: train
+valid-subset: valid
+
+max-epoch: 20
+max-update: 100000
+patience: 5
+best_checkpoint_metric: loss
+maximize_best_checkpoint_metric: False
+
+no-epoch-checkpoints: True
+#keep-last-epochs: 10
+keep-best-checkpoints: 5
+
+num-workers: 8
+no-progress-bar: True
+log-interval: 100
+seed: 1
+report-accuracy: True
+skip-invalid-size-inputs-valid-test: True

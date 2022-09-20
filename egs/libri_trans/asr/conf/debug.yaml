@@ -1,0 +1,59 @@
+arch: s2t_sate
+share-decoder-input-output-embed: True
+optimizer: adam
+clip-norm: 10.0
+lr-scheduler: inverse_sqrt
+warmup-init-lr: 1e-7
+warmup-updates: 10000
+weight-decay: 1e-6
+lr: 2e-3
+adam_betas: (0.9,0.98)
+
+criterion: label_smoothed_cross_entropy_with_ctc
+label_smoothing: 0.1
+
+subsampling-type: conv1d
+subsampling-layers: 2
+subsampling-filter: 1024
+subsampling-kernel: 5
+subsampling-stride: 2
+subsampling-norm: none
+subsampling-activation: glu
+
+dropout: 0.1
+activation-fn: relu
+encoder-embed-dim: 64
+encoder-ffn-embed-dim: 64
+encoder-layers: 12
+decoder-layers: 6
+encoder-attention-heads: 4
+
+decoder-embed-dim: 64
+decoder-ffn-embed-dim: 64
+decoder-attention-heads: 4
+attention-dropout: 0.1
+activation-dropout: 0.1
+
+ctc-weight: 0.2
+interleaved-ctc-weight: 0.1
+interleaved-ctc-layers: 6,9
+sae-ctc-temperature: 1.0
+interleaved-ctc-drop-prob: 0
+
+#target-ctc-weight: 0.2
+#target-ctc-laer: 6
+#target-interleaved-ctc-weight: 0.1
+#target-interleaved-ctc-layers: 2,4
+sae-adapter: league
+sae-drop-prob: 0.0
+sae-distribution-cutoff: 10
+share-ctc-and-sae: False
+
+ctc-self-distill-weight: 1
+#target-ctc-self-distill-weight: 1
+ctc-self-distill-prob: 1.0
+ctc-self-distill-temperature: 1
+sae-ground-truth-ratio: 0.3
+
+#load-pretrained-encoder-from:
+#load-pretrained-decoder-from:

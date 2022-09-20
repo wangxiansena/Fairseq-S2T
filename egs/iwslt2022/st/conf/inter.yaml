@@ -1,0 +1,6 @@
+ctc-weight: 0.2
+intermedia-ctc-layers: 6,9
+intermedia-adapter: league
+intermedia-ctc-weight: 0.1
+ctc-self-distill-weight: 0
+post-process: sentencepiece

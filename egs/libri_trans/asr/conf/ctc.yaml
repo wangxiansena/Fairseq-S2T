@@ -1,0 +1,3 @@
+ctc-weight: 0.3
+zero_infinity: True
+post-process: sentencepiece
