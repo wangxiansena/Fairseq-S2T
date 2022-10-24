@@ -1,0 +1,7 @@
+sh: m: No such file or directory
+Run sh train.sh
+sh: train.sh: No such file or directory
+Run sh ../train.sh
+./run.sh --stage 1 --stop_stage 1 --gpu_num 2 --update_freq 1 --train_config base,ctc,mixup --max_tokens 25000 --extra_tag 5w_lr1e-3_mixup_beta0.5_manifold-1,0,1_keepOrg_ratio2_speca --extra_parameter "--inter-mixup-beta 0.5 --inter-mixup-keep-org True --inter-mixup-ratio 2"
+../train.sh:行105: ./run.sh: 没有那个文件或目录
+sh: train.sh: No such file or directory

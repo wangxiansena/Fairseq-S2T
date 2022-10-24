@@ -654,7 +654,7 @@ class S2TTransformerEncoder(FairseqEncoder):
         self.layers = nn.ModuleList(
             [S2TTransformerEncoderLayer(args) for _ in range(args.encoder_layers)]
         )
-
+        
         if args.encoder_normalize_before:
             self.layer_norm = LayerNorm(dim)
         else:
@@ -754,9 +754,16 @@ class S2TTransformerEncoder(FairseqEncoder):
         if self.mixup:
             str_mixup_layer = args.inter_mixup_layer
             if len(str_mixup_layer.split(",")) == 1:
-                self.mixup_layer = int(str_mixup_layer)
+                self.mixup_layer = [int(str_mixup_layer)]
             else:
                 self.mixup_layer = [int(layer) for layer in str_mixup_layer.split(",")]
+
+            # apply layernorm to every middle layer
+            # if len(self.mixup_layer) > 1 or self.mixup_layer[0] != -1:
+            #     for i in range(1,12):
+            #         mixup_ln = LayerNorm(dim)
+            #         setattr(self, "mixup_ln%d" % i, mixup_ln)
+                
             self.mixup_prob = args.inter_mixup_prob
             self.mixup_ratio = args.inter_mixup_ratio
             self.mixup_keep_org = args.inter_mixup_keep_org
@@ -882,10 +889,10 @@ class S2TTransformerEncoder(FairseqEncoder):
         layer_idx = -1
         mixup = None
         if self.mixup:
-            if type(self.mixup_layer) is list:
+            if len(self.mixup_layer) > 1:
                 mixup_layer = choice(self.mixup_layer)
             else:
-                mixup_layer = self.mixup_layer
+                mixup_layer = self.mixup_layer[0]
 
         if self.history is not None:
             self.history.clean()
@@ -955,7 +962,7 @@ class S2TTransformerEncoder(FairseqEncoder):
         ctc_logit = None
         interleaved_ctc_logits = []
 
-        if self.training and self.mixup and layer_idx == mixup_layer:
+        if self.training and self.mixup and layer_idx == mixup_layer:  
             if torch.rand(1) <= self.mixup_prob:
                 x, encoder_padding_mask, input_lengths, mixup = self.apply_mixup(x, encoder_padding_mask)
 
@@ -967,11 +974,24 @@ class S2TTransformerEncoder(FairseqEncoder):
             # encoder layer
             x = layer(x, encoder_padding_mask, pos_emb=positions)
             layer_idx += 1
-            self.show_debug(x, "x after layer %d" % layer_idx)
+            self.show_debug(x, "x after layer %d" % layer_idx)  
 
-            if self.training and self.mixup and layer_idx == mixup_layer:
+            # # apply layernorm to every middle layer
+            # if self.mixup and layer in range(1,12) and (len(self.mixup_layer) > 1 or self.mixup_layer[0] != -1):
+            #     mixup_ln = getattr(self, "mixup_ln%d" % layer_idx)
+            #     x = mixup_ln(x)  
+
+            if self.training and self.mixup and layer_idx in self.mixup_layer:        
                 if torch.rand(1) < self.mixup_prob:
-                    x, encoder_padding_mask, input_lengths, mixup = self.apply_mixup(x, encoder_padding_mask)
+                    if(layer_idx == mixup_layer):
+                        x, encoder_padding_mask, input_lengths, mixup = self.apply_mixup(x, encoder_padding_mask)
+            ###         x += self.embed_positions(encoder_padding_mask).transpose(0, 1)
+            ### elif not self.training and self.mixup and layer_idx in self.mixup_layer:
+            ###     x = self.mixup_lns[layer_idx](x)
+            ###     x += self.embed_positions(encoder_padding_mask).transpose(0, 1)
+
+            # if self.mixup and layer_idx in self.mixup_layer:
+            #     x += self.embed_positions(encoder_padding_mask).transpose(0, 1)
 
             if self.use_ctc and self.inter_ctc and self.ctc_layer == layer_idx:
                 ctc_logit = self.ctc(x.clone(), encoder_padding_mask, "Source Layer %d" % layer_idx)

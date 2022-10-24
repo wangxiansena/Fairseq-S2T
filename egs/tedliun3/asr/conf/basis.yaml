@@ -1,0 +1,21 @@
+train-subset: train
+valid-subset: dev
+
+max-epoch: 300
+max-update: 300000
+patience: 20
+best-checkpoint-metric: loss
+maximize-best-checkpoint-metric: False
+
+post-process: sentencepiece
+validate-interval: 1
+no-epoch-checkpoints: True
+#keep-last-epochs: 10
+keep-best-checkpoints: 10
+
+num-workers: 8
+no-progress-bar: True
+log-interval: 100
+seed: 1
+report-accuracy: True
+skip-invalid-size-inputs-valid-test: True
